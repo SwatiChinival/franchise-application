@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>FRANCHISE APPLICATION</title>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+   </head>
+   <body ng-app = "franchise">
+      <div class="container">
+	  <script type="text/ng-template" id="home"> 
+         <div class = "row">
+            <div class="col-md-12">
+               <h4 class="text-center">FRANCHISE APPLICATION FORM</h4>
+               <form ng-submit="submitForm(applicantDetails)" name="myForm" novalidate class="form-horizontal">
+                  <div class="form-group">
+                     <label for="name" class="col-sm-4 control-label">Applicants Name <span class="text-danger">*</span></label>
+                     <div class="col-sm-6">
+                        <input type="text" class="form-control" id="name" placeholder="Applicants Name" name="name" ng-model="applicantDetails.applicantName" required>
+					</div>
+                  </div>
+                  <div class="form-group">
+                     <label for="number" class="col-sm-4 control-label">ID Number <span class="text-danger">*</span></label>
+                     <div class="col-sm-6">
+                        <input type="number" min="0" maxlength="10" class="form-control" id="number" name="number" placeholder="ID Number" ng-model="applicantDetails.idNumber" required>
+					</div>
+                  </div>
+				<div class="form-group">
+                     <label for="dob" class="col-sm-4 control-label">Date Of Birth</label>
+                     <div class="col-sm-6">
+                        <input type="date" class="form-control" id="dob" placeholder="Date Of Birth" value="07-05-2019" ng-model="applicantDetails.dateOfBirth" required> 
+                     </div>
+                  </div>
+				<div class="form-group">
+                     <label for="address" class="col-sm-4 control-label">Contact Address</label>
+                     <div class="col-sm-6">
+                        <input type="text" class="form-control" id="address" placeholder="Contact Address" ng-model="applicantDetails.contactAddress">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="phone" class="col-sm-4 control-label">Contact Phone <span class="text-danger">*</span></label>
+                     <div class="col-sm-6">
+                        <input type="text" class="form-control" name="phone" id="phone" minlength="10" maxlength="11" ng-pattern="/^0|[1-9]\d*$/" placeholder="Contact Phone" ng-model="applicantDetails.contactPhone" required> 
+      					<span class="text-danger" ng-show="myForm.phone.$error.minlength">Phone no not less that 10 char.</span>
+      					<span class="text-danger" ng-show="myForm.phone.$error.maxlength">Phone no not more than 11 char.</span>
+						<span class="text-danger" ng-show="myForm.phone.$error.pattern">Please provide valide number.</span>
+					</div>
+                  </div>
+                  <div class="form-group">
+                     <label for="email" class="col-sm-4 control-label">Contact Email <span class="text-danger">*</span></label>
+                     <div class="col-sm-6">
+                        <input type="email" class="form-control" id="email" placeholder="Contact Email" name="email" ng-model="applicantDetails.contactEmail" required>
+                     	<span class="text-danger" ng-show="myForm.email.$error.email"> Not valid email!</span>
+					</div>
+                  </div>
+                  <div class="form-group">
+                     <label for="exp" class="col-sm-4 control-label">Describe your previous experience about Food & Beverage business</label>
+                     <div class="col-sm-6">
+                        <input type="text" class="form-control" id="exp" placeholder="Experience about Food & Beverage business" ng-model="applicantDetails.previousExperience">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="interest" class="col-sm-4 control-label">Describe your interest about our brand</label>
+                     <div class="col-sm-6">
+                        <input type="text" class="form-control" id="interest" placeholder="Interest about our brand" ng-model="applicantDetails.interestInBrand">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="amount" class="col-sm-4 control-label">Planned investment amount in USD</label>
+                     <div class="col-sm-6">
+                        <input type="text" class="form-control" id="amount"  placeholder="Investment amount" ng-model="applicantDetails.investmentAmount">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="location" class="col-sm-4 control-label">In which geographical areas would you like to operate</label>
+                     <div class="col-sm-6">
+							<select class="form-control" id="location" ng-model="applicantDetails.prefferedGeographicalArea" >
+								<option>Al Jasrah</option>
+								<option>Al Khor</option>
+								<option>Blaré</option>
+								<option>Doha</option>
+								<option>Dukhan</option>
+							</select>
+                     </div>
+                  </div>
+				 <div class="form-group">
+                     <label for="note" class="col-sm-4 control-label">Additional Notes</label>
+                     <div class="col-sm-6">
+                        <input type="text" class="form-control" id="note" placeholder="Additional Notes" ng-model="applicantDetails.additionalNotes">
+                     </div>
+                  </div>
+							 
+                  <div class="form-group text-center">
+                     <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default" background-color: #928e8e; ng-disabled = "myForm.$invalid">Submit</button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+		 </script> 
+         <script type="text/ng-template" id="display">
+         <div class = "row">
+            <div class = "col-md-8 col-md-offset-2">
+               <h4 class="text-center">FRANCHISE APPLICATION FORM DETAILS</h4>
+               <hr>
+               <table class="table table-bordered table-striped">
+                  <tr>
+                     <td width='50%'>Applicant Name</td>
+                     <td>{{applicationDetail.applicantName}}</td>
+                  </tr>
+                  <tr>
+                     <td>ID Form</td>
+                     <td>{{applicationDetail.idNumber}}</td>
+                  </tr>
+					<tr>
+                     <td>Date Of Birth</td>
+                     <td>{{applicationDetail.dateOfBirth}}</td>
+                  </tr>
+				  <tr>
+                     <td>Contact Address</td>
+                     <td>{{applicationDetail.contactAddress}}</td>
+                  </tr>
+                  <tr>
+                     <td>Contact Phone</td>
+                     <td>{{applicationDetail.contactPhone}}</td>
+                  </tr>
+                  <tr>
+                     <td>Contact Email</td>
+                     <td>{{applicationDetail.contactEmail}}</td>
+                  </tr>
+                  <tr>
+                     <td>Describe your previous experience about Food & Beverage business</td>
+                     <td>{{applicationDetail.previousExperience}}</td>
+                  </tr>
+                  <tr>
+                     <td>Planned investment amount in USD</td>
+                     <td>{{applicationDetail.investmentAmount}}</td>
+                  </tr>
+                  <tr>
+                     <td>In which geographical areas would you like to operate</td>
+                     <td>{{applicationDetail.prefferedGeographicalArea}}</td>
+                  </tr>
+                  <tr>
+                     <td>Additional Notes</td>
+                     <td>{{applicationDetail.additionalNotes}}</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+		  </script>
+         <div ng-view></div>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="js/angular.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/app.js"></script>
+   </body>
+</html>
